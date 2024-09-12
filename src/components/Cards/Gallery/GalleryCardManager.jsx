@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, addDoc,doc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../../config/firebase";
 import GalleryInputCard from "./GalleryInputCard";
@@ -7,12 +7,13 @@ import GalleryCard from "./GalleryCard";
 
 const GalleryCardManager = ({ isLoading, setIsLoading, onMessage }) => {
   const [galleryCards, setGalleryCards] = useState([]);
-  // const [editingCard, setEditingCard] = useState(null);
-  // const [updatedData, setUpdatedData] = useState({});
+  const [editingCard, setEditingCard] = useState(null);
+  const [updatedData, setUpdatedData] = useState({});
+  const [newCoverImage, setNewCoverImage] = useState(null);
+  const [newAlbumImages, setNewAlbumImages] = useState([]);
 
   useEffect(() => {
     fetchGalleryCards();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchGalleryCards = async () => {
@@ -68,6 +69,45 @@ const GalleryCardManager = ({ isLoading, setIsLoading, onMessage }) => {
       fetchGalleryCards();
     } catch (err) {
       onMessage("Error creating gallery card.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEdit = async (id, updatedData) => {
+    setIsLoading(true);
+    try {
+      const currentCard = galleryCards.find(card => card.id === id);
+      if (!currentCard) {
+        throw new Error("Card not found");
+      }
+
+      let coverImageUrl = updatedData.coverImageUrl || currentCard.coverImageUrl;
+      let albumImageUrls = [...currentCard.albumImageUrls];
+
+      if (newCoverImage) {
+        const coverImageUrls = await uploadImages([newCoverImage], "gallery", id);
+        coverImageUrl = coverImageUrls[0];
+      }
+
+      if (newAlbumImages.length > 0) {
+        albumImageUrls = [];
+        const newAlbumImageUrls = await uploadImages(newAlbumImages, "gallery", id);
+        albumImageUrls.push(...newAlbumImageUrls);
+      }
+
+      const docRef = doc(db, "gallery", id);
+      await updateDoc(docRef, {
+        ...updatedData,
+        coverImageUrl: coverImageUrl || currentCard.coverImageUrl,
+        albumImageUrls: albumImageUrls
+      });
+
+      onMessage("Gallery card updated successfully.");
+      fetchGalleryCards();
+    } catch (err) {
+      onMessage("Error updating gallery card.");
       console.error(err);
     } finally {
       setIsLoading(false);

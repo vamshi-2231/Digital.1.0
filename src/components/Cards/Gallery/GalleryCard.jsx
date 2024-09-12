@@ -14,6 +14,8 @@ const GalleryCard = ({ item, onDelete, fetchCollection, onMessage }) => {
   });
   const [newCoverImage, setNewCoverImage] = useState(null);
   const [coverImagePreview, setCoverImagePreview] = useState(item.coverImageUrl || null);
+  const [newAlbumImages, setNewAlbumImages] = useState([]);
+  const [albumImagePreviews, setAlbumImagePreviews] = useState(item.albumImageUrls || []);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleImageChange = (e) => {
@@ -21,6 +23,10 @@ const GalleryCard = ({ item, onDelete, fetchCollection, onMessage }) => {
       const file = e.target.files[0];
       setNewCoverImage(file);
       setCoverImagePreview(URL.createObjectURL(file));
+    } else if (e.target.name === "albumPhotos") {
+      const files = Array.from(e.target.files);
+      setNewAlbumImages(files);
+      setAlbumImagePreviews(files.map(file => URL.createObjectURL(file)));
     }
   };
 
@@ -34,10 +40,22 @@ const GalleryCard = ({ item, onDelete, fetchCollection, onMessage }) => {
         coverImageUrl = await getDownloadURL(imageRef);
       }
 
+      let albumImageUrls = [...item.albumImageUrls];
+      if (newAlbumImages.length > 0) {
+        albumImageUrls = [];
+        for (const image of newAlbumImages) {
+          const imageRef = ref(storage, `galleryImages/${item.id}_${Date.now()}_${image.name}`);
+          await uploadBytes(imageRef, image);
+          const imageUrl = await getDownloadURL(imageRef);
+          albumImageUrls.push(imageUrl);
+        }
+      }
+
       const docRef = doc(db, "gallery", item.id);
       await updateDoc(docRef, {
         ...updatedData,
         coverImageUrl,
+        albumImageUrls
       });
 
       onMessage("Gallery card updated successfully.");
@@ -76,6 +94,13 @@ const GalleryCard = ({ item, onDelete, fetchCollection, onMessage }) => {
             onChange={handleImageChange}
           />
           {coverImagePreview && <img src={coverImagePreview} alt="Cover preview" className="image-preview" />}
+          <input
+            type="file"
+            name="albumPhotos"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+          />
           <div className="button-group">
             <button onClick={handleEditSubmit} disabled={isLoading}>
               {isLoading ? "Updating..." : "Update"}

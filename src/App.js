@@ -11,6 +11,7 @@ import './lib/lightbox/css/lightbox.min.css';
 import './pages/Styles/Style.css';
 
 import Navbar from './components/Navbar/Navbar';
+import Spinner from './components/Navbar/Spinner';
 import Home from './pages/Home';
 import Vedio from './components/Vedio/Vedio';
 import About from './pages/About';
