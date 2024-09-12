@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { collection, getDocs, addDoc, doc, deleteDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "../../config/firebase";
@@ -26,13 +26,7 @@ const CardManager = ({ isLoading, setIsLoading, onMessage }) => {
   });
   const [currentCardType, setCurrentCardType] = useState(null);
 
-  useEffect(() => {
-    if (currentCardType) {
-      fetchCollectionData(currentCardType);
-    }
-  }, [currentCardType]);
-
-  const fetchCollectionData = async (collectionName) => {
+  const fetchCollectionData = useCallback(async (collectionName) => {
     setIsLoading(true);
     try {
       const collectionRef = collection(db, collectionName);
@@ -45,7 +39,13 @@ const CardManager = ({ isLoading, setIsLoading, onMessage }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [setIsLoading, onMessage]);
+
+  useEffect(() => {
+    if (currentCardType) {
+      fetchCollectionData(currentCardType);
+    }
+  }, [currentCardType, fetchCollectionData]);
 
   const uploadImage = async (image, type, id) => {
     const imageRef = ref(storage, `${type}Images/${id}_${Date.now()}_${image.name}`);
