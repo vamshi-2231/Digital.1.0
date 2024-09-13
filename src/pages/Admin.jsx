@@ -10,7 +10,7 @@ function AdminPage() {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [currentManager, setCurrentManager] = useState("cardManager");
+  const [currentManager, setCurrentManager] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

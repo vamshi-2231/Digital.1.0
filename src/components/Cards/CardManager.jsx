@@ -24,7 +24,7 @@ const CardManager = ({ isLoading, setIsLoading, onMessage }) => {
     features: [],
     videos: [] // Add state for videos
   });
-  const [currentCardType, setCurrentCardType] = useState(null);
+  const [currentCardType, setCurrentCardType] = useState("videos");
 
   useEffect(() => {
     if (currentCardType) {
