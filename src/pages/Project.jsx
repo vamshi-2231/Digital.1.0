@@ -22,7 +22,7 @@ export default function Project() {
                         <div className="project-item">
                             <img className="img-fluid" src={project_5} alt=""></img>
                             <a className="project-title h5 mb-0" href="#/Gallery" data-lightbox="project">
-                                Memory
+                            Editorial
                             </a>
                         </div>
                     </div>
@@ -42,7 +42,7 @@ export default function Project() {
                         <div className="project-item">
                             <img className="img-fluid" src={project_2} alt=""></img>
                             <a className="project-title h5 mb-0" href="#/Gallery" data-lightbox="project">
-                                Portrait
+                            Memory
                             </a>
                         </div>
                     </div>
@@ -50,7 +50,7 @@ export default function Project() {
                         <div className="project-item">
                             <img className="img-fluid" src={project_6} alt=""></img>
                             <a className="project-title h5 mb-0" href="#/Gallery" data-lightbox="project">
-                                Travel
+                            Portrait
                             </a>
                         </div>
                     </div>
