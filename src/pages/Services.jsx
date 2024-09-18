@@ -3,7 +3,7 @@ import React from 'react'
 import service_1 from '../assects/service-1.jpg'
 import service_2 from '../assects/service-2.jpg'
 import service_3 from '../assects/service-3.jpg'
-import service_4 from '../assects/service-4.JPG'
+import service_4 from '../assects/service-4.jpg'
 
 export default function Services() {
   return (
