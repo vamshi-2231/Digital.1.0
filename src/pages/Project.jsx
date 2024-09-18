@@ -82,7 +82,7 @@ export default function Project() {
                         <div className="project-item">
                             <img className="img-fluid" src={project_4} alt=""></img>
                             <a className="project-title h5 mb-0" href="#/Gallery" data-lightbox="project">
-                                Fashion
+                                Memory
                             </a>
                         </div>
                     </div>
