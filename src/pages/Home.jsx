@@ -1,8 +1,8 @@
 import React from 'react'
-import hero_1 from '../assects/hero-1.jpg'
-import hero_2 from '../assects/hero-2.jpg'
-import hero_3 from '../assects/hero-3.jpg'
-import hero_4 from '../assects/hero-4.jpg'
+import hero_1 from '../assects/hero-1.JPG'
+import hero_2 from '../assects/hero-2.JPG'
+import hero_3 from '../assects/hero-3.JPG'
+import hero_4 from '../assects/hero-4.JPG'
 
 export default function Home() {
   return (

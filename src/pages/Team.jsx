@@ -1,8 +1,8 @@
 import React from 'react'
 import team_1 from '../assects/team-1.jpg'
 import team_2 from '../assects/team-2.jpg'
-import team_3 from '../assects/team-3.jpg'
-import team_4 from '../assects/team-4.jpg'
+// import team_3 from '../assects/team-3.jpg'
+// import team_4 from '../assects/team-4.jpg'
 
 export default function Team() {
   return (
@@ -22,7 +22,7 @@ export default function Team() {
                 <div className="col-sm-6">
                     <div className="h-100 p-5 d-flex flex-column justify-content-between">
                         <div className="mb-3">
-                            <h4>Nallagonda Dileep</h4>
+                            <h4>Burra Srinivas</h4>
                             <span>Photographer</span>
                         </div>
                         <p>Photography expert capturing moments with precision and creativity, turning memories into timeless art. 📷✨</p>
@@ -45,7 +45,7 @@ export default function Team() {
                 <div className="col-sm-6">
                     <div className="h-100 p-5 d-flex flex-column justify-content-between">
                         <div className="mb-3">
-                            <h4>Nallagonda Akhil</h4>
+                            <h4>Burra Srinivas</h4>
                             <span>Videographer</span>
                         </div>
                         <p>Video guru crafting compelling visual stories with expertise in filming, editing, and storytelling. 🎥✨</p>
@@ -58,7 +58,7 @@ export default function Team() {
                 </div>
             </div>
         </div>
-        <div className="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+        {/* <div className="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
             <div className="row g-0 flex-lg-row-reverse">
                 <div className="col-sm-6">
                     <div className="team-img position-relative">
@@ -80,8 +80,8 @@ export default function Team() {
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+        </div> */}
+        {/* <div className="col-lg-6 wow fadeIn" data-wow-delay="0.3s">
             <div className="row g-0 flex-sm-row-reverse">
                 <div className="col-sm-6">
                     <div className="team-img position-relative">
@@ -103,7 +103,7 @@ export default function Team() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> */}
     </div>
 </div>
   )
